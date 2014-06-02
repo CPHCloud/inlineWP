@@ -46,7 +46,7 @@ class inlineWP {
 		
 		$queue = $this->enqueued_css;
 		if($queue){
-			echo '<!--'.$this->name.': Enqueued CSS -->';
+			echo '<!-- '.$this->name.': Enqueued CSS -->';
 			echo "<style>".$queue."</style>";
 		}
 	}
