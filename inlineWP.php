@@ -12,7 +12,7 @@ class inlineWP {
 	function __construct($name){
 		
 		$this->name 	= (string)$name;
-		$this->handle 	= sanitize_title($this->name);
+		$this->handle 	= self::sanitize_inlinewp_name($name);
 
 		add_action('wp_footer', array($this, 'output_enqueued_css'), 9999);
 		add_action('wp_footer', array($this, 'output_enqueued_js'), 9999);
@@ -21,7 +21,18 @@ class inlineWP {
 		add_action('admin_footer-edit.php', array($this, 'output_enqueued_js'), 9999);
 		add_action('admin_footer-post.php', array($this, 'output_enqueued_js'), 9999);
 
+		$GLOBALS[inlineWP::get_object_name($name)] = $this;
+
 	}
+
+	static function sanitize_inlinewp_name($input){
+		return str_ireplace('-', '_', sanitize_title($input));
+	}
+
+	static function get_object_name($input){
+		return '__inline_wp_'.inlineWP::sanitize_inlinewp_name($input);
+	}
+
 
 	function enqueue_css($css){
 		$this->enqueued_css .= $css."\n";		
@@ -50,5 +61,16 @@ class inlineWP {
 	}
 }
 endif;
+
+
+function inlinewp($name){
+	$handle = inlineWP::sanitize_inlinewp_name($name);
+	$objnme = inlineWP::get_object_name($name);
+	if(!isset($GLOBALS[$objnme]) or !$GLOBALS[$objnme] or !is_object($GLOBALS[$objnme])){
+		$GLOBALS[$objname] = new inlineWP($name);
+	}
+	return $GLOBALS[$objnme];
+
+}
 
 ?>
