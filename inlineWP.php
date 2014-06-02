@@ -49,8 +49,6 @@ class inlineWP {
 		}
 	}
 }
-
-
 endif;
 
 ?>
