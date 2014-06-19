@@ -42,8 +42,7 @@ class inlineWP {
 		$this->enqueued_js .= $js."\n";
 	}
 
-	function output_enqueued_css($admin = false){
-		
+	function output_enqueued_css($admin = false){		
 		$queue = $this->enqueued_css;
 		if($queue){
 			echo '<!-- '.$this->name.': Enqueued CSS -->';
