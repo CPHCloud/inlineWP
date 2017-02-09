@@ -61,7 +61,7 @@ class inlineWP {
 }
 
 /* Global inlineWP function */
-function inlinewp($name){
+function inlinewp($name = ''){
 	$handle = inlineWP::sanitize_inlinewp_name($name);
 	$objnme = inlineWP::get_object_name($name);
 	if(!isset($GLOBALS[$objnme]) or !$GLOBALS[$objnme] or !is_object($GLOBALS[$objnme])){
